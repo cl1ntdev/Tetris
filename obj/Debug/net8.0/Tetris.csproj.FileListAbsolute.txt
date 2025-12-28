@@ -1,0 +1,14 @@
+c:\College_\Projects\Tetris\bin\Debug\net8.0\Tetris.exe
+c:\College_\Projects\Tetris\bin\Debug\net8.0\Tetris.deps.json
+c:\College_\Projects\Tetris\bin\Debug\net8.0\Tetris.runtimeconfig.json
+c:\College_\Projects\Tetris\bin\Debug\net8.0\Tetris.dll
+c:\College_\Projects\Tetris\bin\Debug\net8.0\Tetris.pdb
+c:\College_\Projects\Tetris\obj\Debug\net8.0\Tetris.GeneratedMSBuildEditorConfig.editorconfig
+c:\College_\Projects\Tetris\obj\Debug\net8.0\Tetris.AssemblyInfoInputs.cache
+c:\College_\Projects\Tetris\obj\Debug\net8.0\Tetris.AssemblyInfo.cs
+c:\College_\Projects\Tetris\obj\Debug\net8.0\Tetris.csproj.CoreCompileInputs.cache
+c:\College_\Projects\Tetris\obj\Debug\net8.0\Tetris.dll
+c:\College_\Projects\Tetris\obj\Debug\net8.0\refint\Tetris.dll
+c:\College_\Projects\Tetris\obj\Debug\net8.0\Tetris.pdb
+c:\College_\Projects\Tetris\obj\Debug\net8.0\Tetris.genruntimeconfig.cache
+c:\College_\Projects\Tetris\obj\Debug\net8.0\ref\Tetris.dll
