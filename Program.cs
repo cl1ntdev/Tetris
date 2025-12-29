@@ -139,6 +139,16 @@ void game()
         Console.WriteLine("=========" + iteration + "==========");
         iteration++;
 
+        // ==============
+        // fall animation
+        // ==============
+        // fall every iteration
+            // Console.Write("iterationssss");
+            isBlockPlaced = fallAnimate(blockPlaceX, blockPlaceY);
+            if(isBlockPlaced){
+                Console.WriteLine("spawn another block");
+            }
+            blockPlaceX += 1;    
 
         // =================
         // start the game ui
@@ -224,18 +234,7 @@ void game()
                 }
 
             }
-            // ==============
-            // fall animation
-            // ==============
-            // fall every iteration
-            if(i % 10 == 0 && i != 0){ 
-                // Console.Write("iterationssss");
-                isBlockPlaced = fallAnimate(blockPlaceX, blockPlaceY);
-                if(isBlockPlaced){
-                    Console.WriteLine("spawn another block");
-                }
-                blockPlaceX += 1;    
-            }
+           
 
             // newline every 10 run equivalent to 1 row
             Console.WriteLine("");
