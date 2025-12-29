@@ -87,14 +87,22 @@ void changeXpos(string direction, int xpos, int ypos)
     
 }
 
-void fallAnimate(int xpos, int ypos){
+bool fallAnimate(int xpos, int ypos){
     if(xpos<height){
         pane[xpos, ypos] = 0;
         xpos++;
-        Console.WriteLine(pane[xpos, ypos]);
-        pane[xpos, ypos] = 1;
+        if(xpos == height){
+            Console.WriteLine("what a nice end block");
+            // spawn another block
+            return true;
+        }else{
+            pane[xpos, ypos] = 1;
+        }
+        
+    }else{
+        return false;
     }
-    
+    return false;
 }
 
 void game()
@@ -115,7 +123,7 @@ void game()
 
     while (isGame)
     {
-        Thread.Sleep(1000);
+        Thread.Sleep(900); // tick
         Console.Clear();
         Console.WriteLine("block: " + randomBlockPlacementY);
         Console.WriteLine("x: " + blockPlaceX + "| y: " + blockPlaceY);
@@ -130,7 +138,7 @@ void game()
 
         for (int i = 0; i < height; i++)
         {
-            Console.Write(i + 1 + ":");
+            Console.Write(i + ":");
             
             // spawn block
             if (!isBlockSpawn)
@@ -143,15 +151,7 @@ void game()
                 blockPlaceX = 0;
                 isBlockSpawn = true;
             }
-            // ==============
-            // fall animation
-            // ==============
-            // fall every iteration
-            if(i % 10 == 0){ 
-                
-                fallAnimate(blockPlaceX, blockPlaceY);
-                blockPlaceX += 1;    
-            }
+            
             
             // change position
 
@@ -198,7 +198,9 @@ void game()
             // for debugging and stuff
             // Console.WriteLine(i);
             // Console.WriteLine("=========" + i + "==========");
-
+            
+            
+            // GENERATE SOME STUFF BOX
             for (int j = 0; j < width; j++)
             {
 
@@ -213,6 +215,18 @@ void game()
                     Console.Write("  ");
                 }
 
+            }
+            // ==============
+            // fall animation
+            // ==============
+            // fall every iteration
+            if(i % 10 == 0 && i != 0){ 
+                // Console.Write("iterationssss");
+                isBlockPlaced = fallAnimate(blockPlaceX, blockPlaceY);
+                if(isBlockPlaced){
+                    Console.WriteLine("spawn another block");
+                }
+                blockPlaceX += 1;    
             }
 
             // newline every 10 run equivalent to 1 row
