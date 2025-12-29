@@ -104,6 +104,14 @@ bool fallAnimate(int xpos, int ypos){
     }
     return false;
 }
+//  >> >> >> >> >> GAME LOGIC << << << << << //
+// 
+// 1. Game iterates to all array size, w * h = no. iterations.
+// 
+// 
+// 
+//  >> >> >> >> >> GAME LOGIC << << << << << //
+
 
 void game()
 {
