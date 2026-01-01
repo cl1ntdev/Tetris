@@ -111,10 +111,10 @@ void winChecker(){
                 pane[i, j] = 0;
                 // Console.WriteLine(pane[i, j]);
             }
+            isWin = false;
         }
         
-        //reset everything
-        isWin = false;
+        
         rowChecker = 0;
     }
 }
