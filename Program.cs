@@ -3,7 +3,7 @@
 
 int[,] pane = new int[20, 20]{
     //    == Y - col ==
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, //1
+    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}, //1
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, //1
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, //1
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, //1
@@ -22,7 +22,7 @@ int[,] pane = new int[20, 20]{
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, //1
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, //1
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, //1
-    {1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}, // 20
+    {1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}, // 20
     // {0,0,0,0,0,0,0,0,0,0}, //2
     // {0,0,0,0,0,0,0,0,0,0}, //3
     // {0,0,0,0,0,0,0,0,0,0}, //4
@@ -36,7 +36,8 @@ int[,] pane = new int[20, 20]{
 
 int width = 20;
 int height = 20;
-
+bool isLineDebug = false;
+int score = 0;
 // Console.WriteLine(pane.Length);
 // Console.WriteLine(pane[0, 0]);
 // pane[x,y]
@@ -87,24 +88,44 @@ void changeXpos(string direction, int xpos, int ypos)
     
 }
 
+void winChecker(){
+    int rowChecker = 0;
+    for(int i = 0; i < height; i++){
+        
+        for(int j = 0; j < width; j++){            
+            if(pane[i,j] == 1){
+                rowChecker++;
+            }
+        }
+        if(i % 10 == 0 && rowChecker % 10 == 0 && i != 0){
+            score++;
+        }
+        rowChecker = 0;
+    }
+}
+
 bool fallAnimate(int xpos, int ypos){
+    // xpos means vertical, i know....
     if(xpos<=height){
-        // block checker if the preceeding block has something
-        // Console.WriteLine("changeXpos =>  x: " + xpos + "| y: " + ypos);
         pane[xpos, ypos] = 0;
         xpos++;
-        Console.WriteLine(pane[xpos, ypos]);        
-        if(pane[xpos, ypos] == 1){
-            xpos--;
-            pane[xpos, ypos] = 1;
-            return true;
-        }
         
         if(xpos == height){
             Console.WriteLine("what a nice end block");
+            xpos--;
+            pane[xpos, ypos] = 1;
             // spawn another block
             return true;
         }else{
+            // block checker if the preceeding block has something
+            // Console.WriteLine("changeXpos =>  x: " + xpos + "| y: " + ypos);
+            
+            // Console.WriteLine(pane[xpos, ypos]);        
+            if(pane[xpos, ypos] == 1){
+                xpos--;
+                pane[xpos, ypos] = 1;
+                return true;
+            }
             pane[xpos, ypos] = 1;
         }
         
@@ -124,6 +145,7 @@ bool fallAnimate(int xpos, int ypos){
 
 void game()
 {
+    winChecker();
     bool isGame = true;
     string userInput = "";
     int iteration = 0;
@@ -145,7 +167,7 @@ void game()
         Thread.Sleep(300); // tick
         Console.Clear();
         Console.WriteLine("block: " + randomBlockPlacementY);
-        Console.WriteLine("x: " + blockPlaceX + "| y: " + blockPlaceY);
+        Console.WriteLine("x: " + blockPlaceX + "| y: " + blockPlaceY + " score: " + score);
 
         Console.WriteLine("=========" + iteration + "==========");
         iteration++;
@@ -157,8 +179,11 @@ void game()
             // Console.Write("iterationssss");
             isBlockPlaced = fallAnimate(blockPlaceX, blockPlaceY);
             if(isBlockPlaced){
+                blockPlaceX = random.Next(0, 9);
+                blockPlaceY = 0;
                 Console.WriteLine("spawn another block");
-            }else{
+                winChecker();
+        }else{
                 blockPlaceX += 1;                    
             }
 
@@ -168,7 +193,9 @@ void game()
 
         for (int i = 0; i < height; i++)
         {
-            Console.Write(i + ":");
+            if(isLineDebug){
+                Console.Write(i + ":");                
+            }
             
             // spawn block
             if (!isBlockSpawn)
