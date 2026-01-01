@@ -36,7 +36,6 @@ int[,] pane = new int[20, 20]{
 
 int width = 20;
 int height = 20;
-bool isLineDebug = false;
 int score = 0;
 // Console.WriteLine(pane.Length);
 // Console.WriteLine(pane[0, 0]);
@@ -89,7 +88,9 @@ void changeXpos(string direction, int xpos, int ypos)
 }
 
 void winChecker(){
+    bool isWin = false;
     int rowChecker = 0;
+    
     for(int i = 0; i < height; i++){
         
         for(int j = 0; j < width; j++){            
@@ -99,7 +100,21 @@ void winChecker(){
         }
         if(i % 10 == 0 && rowChecker % 10 == 0 && i != 0){
             score++;
+            isWin = true;
+            // transform pane
         }
+        
+        if(i == height-1 && isWin){ // indexing
+            // Console.WriteLine("I = " + i + " height = " + (height-1));
+            // Console.WriteLine("winnnnnnnnnnnnnn");
+            for(int j = 0; j < width; j++){
+                pane[i, j] = 0;
+                // Console.WriteLine(pane[i, j]);
+            }
+        }
+        
+        //reset everything
+        isWin = false;
         rowChecker = 0;
     }
 }
@@ -145,7 +160,7 @@ bool fallAnimate(int xpos, int ypos){
 
 void game()
 {
-    winChecker();
+    bool isLineDebug = true;
     bool isGame = true;
     string userInput = "";
     int iteration = 0;
