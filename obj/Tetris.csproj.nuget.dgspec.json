@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\College_\\Projects\\tetris\\Tetris.csproj": {}
+    "c:\\College_\\Projects\\Tetris\\Tetris.csproj": {}
   },
   "projects": {
-    "c:\\College_\\Projects\\tetris\\Tetris.csproj": {
+    "c:\\College_\\Projects\\Tetris\\Tetris.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\College_\\Projects\\tetris\\Tetris.csproj",
+        "projectUniqueName": "c:\\College_\\Projects\\Tetris\\Tetris.csproj",
         "projectName": "Tetris",
-        "projectPath": "c:\\College_\\Projects\\tetris\\Tetris.csproj",
+        "projectPath": "c:\\College_\\Projects\\Tetris\\Tetris.csproj",
         "packagesPath": "C:\\Users\\clint\\.nuget\\packages\\",
-        "outputPath": "c:\\College_\\Projects\\tetris\\obj\\",
+        "outputPath": "c:\\College_\\Projects\\Tetris\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\clint\\AppData\\Roaming\\NuGet\\NuGet.Config"
