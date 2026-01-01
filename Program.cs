@@ -88,9 +88,18 @@ void changeXpos(string direction, int xpos, int ypos)
 }
 
 bool fallAnimate(int xpos, int ypos){
-    if(xpos<height){
+    if(xpos<=height){
+        // block checker if the preceeding block has something
+        // Console.WriteLine("changeXpos =>  x: " + xpos + "| y: " + ypos);
         pane[xpos, ypos] = 0;
         xpos++;
+        Console.WriteLine(pane[xpos, ypos]);        
+        if(pane[xpos, ypos] == 1){
+            xpos--;
+            pane[xpos, ypos] = 1;
+            return true;
+        }
+        
         if(xpos == height){
             Console.WriteLine("what a nice end block");
             // spawn another block
@@ -126,12 +135,14 @@ void game()
 
     Random random = new Random();
     int randomBlockPlacementY = random.Next(0, 9);
+    
+    //single block spawn
     int blockPlaceX = 0;
     int blockPlaceY = 0;
 
     while (isGame)
     {
-        Thread.Sleep(900); // tick
+        Thread.Sleep(300); // tick
         Console.Clear();
         Console.WriteLine("block: " + randomBlockPlacementY);
         Console.WriteLine("x: " + blockPlaceX + "| y: " + blockPlaceY);
@@ -147,8 +158,9 @@ void game()
             isBlockPlaced = fallAnimate(blockPlaceX, blockPlaceY);
             if(isBlockPlaced){
                 Console.WriteLine("spawn another block");
+            }else{
+                blockPlaceX += 1;                    
             }
-            blockPlaceX += 1;    
 
         // =================
         // start the game ui
