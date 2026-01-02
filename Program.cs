@@ -3,7 +3,7 @@
 
 int[,] pane = new int[20, 20]{
     //    == Y - col ==
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}, //1
+    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}, //1 -- index 0
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, //1
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, //1
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, //1
@@ -22,7 +22,7 @@ int[,] pane = new int[20, 20]{
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, //1
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, //1
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, //1
-    {1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}, // 20
+    {1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}, // 20 -- index 19
     // {0,0,0,0,0,0,0,0,0,0}, //2
     // {0,0,0,0,0,0,0,0,0,0}, //3
     // {0,0,0,0,0,0,0,0,0,0}, //4
@@ -90,15 +90,25 @@ void changeXpos(string direction, int xpos, int ypos)
 void winChecker(){
     bool isWin = false;
     int rowChecker = 0;
-    
-    for(int i = 0; i < height; i++){
-        
+    // Console.WriteLine("win: " + isWin + " rows: " + rowChecker + " score: " +  score);
+
+    for (int i = 1; i < height; i++)
+    {
+        // Console.Write(i + ": ");
         for(int j = 0; j < width; j++){            
             if(pane[i,j] == 1){
+                Console.WriteLine(j+". row count: " + rowChecker);
                 rowChecker++;
             }
         }
-        if(i % 10 == 0 && rowChecker % 10 == 0 && i != 0){
+        Console.WriteLine("Rows Are: " + rowChecker);
+        if(rowChecker != width){
+            rowChecker = 0;
+        }
+        // Console.WriteLine("win: " + isWin + " rows: " + rowChecker + " score: " +  score);
+        // if(i % 10 == 0 && i != 0 && rowChecker == 10){
+        else if(rowChecker == width){ // meaning fully occupied space, and check per row
+            Console.WriteLine("SCOREEE");
             score++;
             isWin = true;
             // transform pane
@@ -108,15 +118,16 @@ void winChecker(){
             // Console.WriteLine("I = " + i + " height = " + (height-1));
             // Console.WriteLine("winnnnnnnnnnnnnn");
             for(int j = 0; j < width; j++){
+                Console.WriteLine(j+":REMOVED");
                 pane[i, j] = 0;
                 // Console.WriteLine(pane[i, j]);
             }
             isWin = false;
         }
-        
-        
+
         rowChecker = 0;
     }
+    
 }
 
 bool fallAnimate(int xpos, int ypos){
@@ -160,7 +171,8 @@ bool fallAnimate(int xpos, int ypos){
 
 void game()
 {
-    bool isLineDebug = true;
+    // winChecker();
+    bool isLineDebug = false;
     bool isGame = true;
     string userInput = "";
     int iteration = 0;
