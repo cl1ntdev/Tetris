@@ -21,7 +21,7 @@ int[,] pane = new int[20, 20]{
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, //1
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, //1
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, //1
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, //1
+    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, //1
     {1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}, // 20 -- index 19
     // {0,0,0,0,0,0,0,0,0,0}, //2
     // {0,0,0,0,0,0,0,0,0,0}, //3
@@ -37,6 +37,7 @@ int[,] pane = new int[20, 20]{
 int width = 20;
 int height = 20;
 int score = 0;
+bool isRemoved = false;
 // Console.WriteLine(pane.Length);
 // Console.WriteLine(pane[0, 0]);
 // pane[x,y]
@@ -87,6 +88,32 @@ void changeXpos(string direction, int xpos, int ypos)
     
 }
 
+// needs some fixing
+void updateBlocks() {
+    
+    if (!isRemoved) return;
+
+    // Iterate BACKWARDS (Bottom to Top)
+    // Start at height-2 because we check i+1 (the row below)
+    for (int i = height - 2; i >= 0; i--) 
+    {
+        for (int j = 0; j < width; j++) 
+        {
+            int below = i + 1;
+
+            //  If CURRENT is a block (1) AND BELOW is empty (0)
+            if (pane[i, j] == 1 && pane[below, j] == 0) 
+            {
+                // Move block down
+                pane[below, j] = 1;
+                pane[i, j] = 0;
+            }
+        }
+    }
+    
+    isRemoved = false;
+}
+
 void winChecker(){
     bool isWin = false;
     int rowChecker = 0;
@@ -113,7 +140,7 @@ void winChecker(){
             isWin = true;
             // transform pane
         }
-        
+        //remmoveing blck
         if(i == height-1 && isWin){ // indexing
             // Console.WriteLine("I = " + i + " height = " + (height-1));
             // Console.WriteLine("winnnnnnnnnnnnnn");
@@ -121,7 +148,12 @@ void winChecker(){
                 Console.WriteLine(j+":REMOVED");
                 pane[i, j] = 0;
                 // Console.WriteLine(pane[i, j]);
+                // >>
+                // >> AFTER REMOVEING INDENT PREVIOUS BLOCKS TO 1 
+                // >>
+                isRemoved = true;
             }
+            updateBlocks();
             isWin = false;
         }
 
